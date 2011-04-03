@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+	<head>
+		<meta charset="utf-8" />
+
+		<title>JSBimaru</title>
+
+		<style>
+		  @import url(css/style.css);
+		</style>
+	</head>
+
+	<body>
+
+		<div id="header">
+		  <h1>JSBimaru</h1>
+		</div>
+
+		<div id="game">
+
+		  <div id="canvas">
+			<table cellpadding="0" cellspacing="0">
+			  <tbody></tbody>
+			</table>
+		  </div> <!-- end #canvas -->
+
+		  <div id="ships">
+				<h2>Ships left</h2>
+				<!-- will be filled -->
+		  </div>
+
+		  <div id="stats">
+
+				<h2>Game</h2>
+				<div id="aside">
+					<dl>
+						<dt>Playtime</dt>
+						<dd id="playtime">00:00:00</dd>
+
+						<dt>Moves</dt>
+						<dd id="moves">0</dd>
+
+						<dt>End</dt>
+						<dd><a href="#">to be done..</a></dd>
+					</dl>
+
+					<div>
+						<button id="new-game">New Game</button>
+						<button id="load-game">Load Game</button>
+						<button id="help">Help!</button>
+					</div>
+				</div>
+
+				<h2>Tiles</h2>
+				<table id="tiles">
+					<tbody>
+					<tr>
+						<td></td>
+						<td title="Numkey: 8"><div class="ship-top" id="ship-top">8</div></td>
+						<td></td>
+						<td title="Numkey: - (Minus)"><div class="water" id="water-vertical">&#8597;</div>
+					</tr>
+					<tr>
+						<td title="Numkey: 4"><div class="ship-left" id="ship-left">4</div></td>
+						<td title="Numkey: 5"><div class="ship-center" id="ship-center">5</div></td>
+						<td title="Numkey: 6"><div class="ship-right" id="ship-right">6</div></td>
+						<td></td>
+					</tr>
+					<tr>
+						<td></td>
+						<td title="Numkey: 2"><div class="ship-bottom" id="ship-bottom">2</div></td>
+						<td></td>
+						<td title="Numkey: + (Plus)"><div class="water" id="water-horizontal">&harr;</div>
+					</tr>
+					<tr>
+						<td title="Numkey: 0"><div class="ship-single" id="ship-single">0</div></td>
+						<td></td>
+						<td title="Numkey: . (Period)"><div class="ship-unknown" id="ship-unknown"></div></td>
+						<td title="Numkey: Enter"><div class="water" id="water"></div></td>
+					</tr>
+					</tbody>
+				</table>
+
+				<h2>Options</h2>
+
+				<!--<div class="option">
+					<label>
+						Show conflicts:
+						<input type="checkbox" id="show-conflicts" />
+					</label>
+				</div>-->
+
+				<div class="option">
+					<p>Play mode:</p>
+					<ul id="playmode">
+						<li id="mode-1">Select tile &ndash; Click cell</li>
+						<li id="mode-2">Select cell &ndash; Click tile</li>
+					</ul>
+				</div>
+
+
+		  </div> <!-- end #stats -->
+
+		</div> <!-- end #game -->
+
+		<div class="modal" id="modal-start">
+			<h2>Start new game</h2>
+			<p>Chose one of the following numbers to begin a game.</p>
+
+			<h4 class="easy">Easy</h4>
+			<hr class="easy" />
+			<ul class="games easy">
+			</ul>
+
+			<h4 class="normal">Normal</h4>
+			<hr class="normal" />
+			<ul class="games normal">
+			</ul>
+
+
+			<h4 class="hard">Hard</h4>
+			<hr class="hard" />
+			<ul class="games hard">
+			</ul>
+
+			<button class="cancel">Cancel</button>
+		</div>
+
+		<div class="modal" id="modal-load">
+			<h2>Load a game</h2>
+			<p>Simply paste it in this textfield and click load.</p>
+			<textarea id="load"></textarea>
+			<button>Load</button>
+			<button class="cancel">Cancel</button>
+		</div>
+
+		<div class="modal" id="modal-help">
+			<h2>What is Bimaru?</h2>
+			<p>
+				In Battleship (also known as Bimaru), an armada of battleships is hidden
+				in a square grid of 10×10 small squares. The armada includes one
+				battleship four squares long, two cruisers three squares long, three
+				destroyers two squares long, and four submarines one square in size.
+				Each ship occupies a number of contiguous squares on the grid, arranged
+				horizontally or vertically. The boats are placed so that no boat touches
+				any other boat, not even diagonally.
+			</p>
+			<p>
+				The goal of the puzzle is to discover where the ships are located. A
+				grid may start with clues in the form of squares that have already been
+				solved, showing a submarine, an end piece of a ship, a middle piece of a
+				ship, or water. Each row and column also has a number beside it,
+				indicating the number of squares occupied by ship parts in that row or
+				column, respectively.
+			</p>
+
+			<cite>
+				from: <a href="http://en.wikipedia.org/wiki/Battleship_(puzzle)">Wikipedia, The Free Encyclopedia</a>
+			</cite>
+			<button class="cancel">Close</button>
+		</div>
+
+		<div id="tooltip">
+			<div id="tarrow">
+				<div id="tarrow2"></div>
+			</div>
+			<div id="tcontent"></div>
+		</div>
+
+		<div id="footer">
+		  <p>
+			made by <a href="http://www.julianwachholz.ch/">Julian Wachholz</a>
+		  </p>
+		</div>
+
+		<script src="jquery.js"></script>
+		<script src="script.js"></script>
+
+    <!-- ObserverApp Beta :) -->
+    <script type="text/javascript" src="http://www.observerapp.com/record.js"></script>
+    <script type="text/javascript">
+    try { Observerapp.record("4c9627a911e702c87b0276c5"); } catch(e) {};
+    </script>
+
+    <script>
+      var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', 'UA-16722648-1']);
+      _gaq.push(['_trackPageview']);
+      (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+      })();
+    </script>
+	</body>
+</html>

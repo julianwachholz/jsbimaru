@@ -1,0 +1,610 @@
+/**
+ * STYLESHEET
+ * JSBimaru
+ * @author Julian Wachholz
+ */
+
+@import url("fonts/stylesheet.css");
+
+body {
+    background: rgb(240,240,250) url("bg.png") repeat;
+    font-family: "GraublauWeb";
+    font-size: 12px;
+    color: rgb(60, 60, 60);
+    cursor: default;
+}
+
+    ::selection {
+        color: rgb(255, 255, 255);
+        background: rgba(197, 206, 255, .8);
+    }
+    ::-moz-selection {
+        color: rgb(255, 255, 255);
+        background: rgba(197, 206, 255, .8);
+    }
+
+    #header,
+    #footer,
+    #game {
+        width: 600px;
+        margin: auto;
+    }
+
+        #header, h2 {
+            font-family: "ChunkFive", "Rockwell", "Arial Black", serif;
+            font-size: 24px;
+            font-variant: small-caps;
+            color: rgb(130, 150, 170);
+            text-shadow: 0 -1px 0 rgba(255, 255, 255, .6),
+                         0 1px 0 rgba(100, 100, 100, .7),
+                         4px 14px 5px rgba(0, 0, 0, .15);
+        }
+
+        #game {
+            position: relative;
+            background: rgba(252, 252, 252, .6);
+            border: 1px solid rgba(145, 145, 150, .4);
+            -moz-border-radius: 20px;
+            -webkit-border-radius: 20px;
+            border-radius: 20px;
+            -moz-box-shadow: 0 1px 6px rgba(0, 0, 0, .1);
+            -webkit-box-shadow: 0 1px 6px rgba(0, 0, 0, .1);
+            box-shadow: 0 1px 6px rgba(0, 0, 0, .1);
+            min-height: 480px;
+        }
+
+            #canvas, #ships {
+                margin: 25px;
+            }
+
+                #canvas div[class^="ship-"] {
+                    font-size: 40px;
+                    color: rgb(255, 0, 0);
+                    line-height: 26px;
+                    font-family: monospace;
+                    text-shadow: 0 0 1px rgba(120, 80, 80, .7);
+                }
+
+                table {
+                    empty-cells: show;
+                    table-layout: fixed;
+                    border-collapse: collapse;
+                }
+
+                    table tr td {
+                        padding: 0;
+                        width: 30px;
+                        height: 30px;
+                        border: 1px solid rgb(180, 180, 180);
+                        background: rgba(0, 0, 0, .02);
+                        -webkit-transition: background .1s;
+                        -moz-transition: background .1s;
+                        -o-transition: background .1s;
+                        cursor: pointer;
+                    }
+
+                        table tr td.selected, table tr td:hover {
+                            background: rgba(255, 100, 100, .5);
+                        }
+
+                        table tr td div {
+                            width: 30px;
+                            height: 30px;
+                        }
+
+                        /* game tiles */
+                        div.water,
+                        div[class^="ship-"] {
+                            background: rgba(130, 150, 170, .8);
+                            background: -moz-radial-gradient(center, rgba(150, 170, 190, .7), rgba(130, 150, 170, .8));
+                            background: -webkit-gradient(radial, 50% 50%, 0, 50% 50%, 30, from(rgba(150, 170, 190, .7)), to(rgba(130, 150, 170, .8)));
+                            text-align: center;
+                            line-height: 28px;
+                            color: rgb(255, 255, 255);
+                            text-shadow: 0 1px 0 rgba(0, 0, 0, .5);
+                        }
+                            /* preset pieces */
+                            div[class^="ship-"].set {
+                                background: rgba(90, 110, 130, .7);
+                            }
+
+                            div.water.set {
+                                background: rgba(90, 110, 215, .6);
+                            }
+
+                            #ships div[class^="ship-"] {
+                                width: 15px;
+                                height: 15px;
+                                -moz-box-shadow: 0 -1px 0 rgba(255, 255, 255, 1),
+                                                 0 1px 0 rgba(0, 0, 0, .2),
+                                                 2px 2px 5px rgba(0, 0, 0, .2);
+                                -webkit-box-shadow: 0 -1px 0 rgba(255, 255, 255, 1),
+                                                 0 1px 0 rgba(0, 0, 0, .2),
+                                                 2px 2px 5px rgba(0, 0, 0, .2);
+                                box-shadow: 0 -1px 0 rgba(255, 255, 255, 1),
+                                                 0 1px 0 rgba(0, 0, 0, .2),
+                                                 2px 2px 5px rgba(0, 0, 0, .2);
+                            }
+                                #ships div.done div {
+                                    margin-top: 1px;
+                                    margin-bottom: -1px;
+                                    background: rgba(0, 0, 0, .3);
+                                    -moz-box-shadow: 0 1px 0 rgba(255, 255, 255, 1),
+                                                     0 -1px 0 rgba(0, 0, 0, .4);
+                                    -webkit-box-shadow: 0 1px 0 rgba(255, 255, 255, 1),
+                                                     0 -1px 0 rgba(0, 0, 0, .4);
+                                    box-shadow: 0 1px 0 rgba(255, 255, 255, 1),
+                                                     0 -1px 0 rgba(0, 0, 0, .4);
+                                }
+
+                        div.water {
+                            background: rgba(130, 150, 255, .5);
+                        }
+
+                        div.ship-top {
+                            -moz-border-radius: 15px 15px 0 0;
+                            -webkit-border-radius: 15px 15px 0 0;
+                            border-radius: 15px 15px 0 0;
+                        }
+
+                        div.ship-right {
+                            -moz-border-radius: 0 15px 15px 0;
+                            -webkit-border-radius: 0 15px 15px 0;
+                            border-radius: 0 15px 15px 0;
+                        }
+
+                        div.ship-bottom {
+                            -moz-border-radius: 0 0 15px 15px;
+                            -webkit-border-radius: 0 0 15px 15px;
+                            border-radius: 0 0 15px 15px;
+                        }
+
+                        div.ship-left {
+                            -moz-border-radius: 15px 0 0 15px;
+                            -webkit-border-radius: 15px 0 0 15px;
+                            border-radius: 15px 0 0 15px;
+                        }
+
+                        div.ship-single {
+                            -moz-border-radius: 15px;
+                            -webkit-border-radius: 15px;
+                            border-radius: 15px;
+                        }
+
+                        div.ship-unknown {
+                            height: 0px;
+                            width: 9px;
+                            margin: 0 auto;
+                            padding-bottom: 9px;
+                            -moz-border-radius: 2px;
+                            -webkit-border-radius: 2px;
+                            border-radius: 2px;
+                        }
+
+                        div.ship-center {
+                            /* well... */
+                        }
+
+
+                    table tr th {
+                        width: 30px;
+                        padding-top: 14px;
+                        font-size: 14px;
+                        text-align: center;
+                        line-height: 0;
+                        vertical-align: top;
+                        color: rgb(120, 120, 120);
+                        text-shadow: 0 1px 0 rgb(255, 255, 255);
+                    }
+
+                        table tr th[scope="row"] {
+                            text-align: left;
+                        }
+
+                        table tr th[scope="col"] {
+                            vertical-align: top;
+                        }
+
+            #ships {
+                width: 345px;
+                margin-bottom: 20px;
+            }
+
+            #ships:after, ul.games:after {  /* clearfix */
+                content: ".";
+                display: block;
+                clear: both;
+                visibility: hidden;
+                line-height: 0;
+                height: 0;
+            }
+                #ships div {
+                    float: left;
+                }
+
+                #ships>div {
+                    margin: 0 8px 8px 0;
+                }
+
+                #ships div > div {
+                    margin-right: 1px;
+                }
+
+            #stats {
+                position: absolute;
+                 top: 20px;
+                 right: 30px;
+                width: 180px;
+            }
+
+                h2 {
+                    /* inherits font-family, -variant and color from header */
+                    font-size: 19px;
+                    letter-spacing: .05em;
+                    text-shadow: 0 -1px 0 rgba(255, 255, 255, .6),
+                                 0 1px 0 rgba(100, 100, 100, .7),
+                                 2px 7px 3px rgba(0, 0, 0, .1);
+                }
+
+                #stats dl dt {
+                    letter-spacing: .1em;
+                    padding-top: 5px;
+                    border-top: 1px solid rgba(255, 255, 255, 1);
+                }
+
+                    #stats dl dt:first-child {
+                        border-top: none;
+                        padding-top: 0;
+                    }
+
+                    #stats dl dt:after {
+                        content: ":";
+                    }
+
+                #stats dl dd {
+                    margin: 0;
+                    color: rgb(140, 140, 140);
+                    text-shadow: 0 1px 0 rgba(255, 255, 255, .9);
+                    padding-bottom: 5px;
+                    text-align: right;
+                    border-bottom:  1px solid rgba(0, 0, 0, .05);
+                }
+
+                    #stats dl dd:last-child {
+                        border-bottom: none;
+                        padding-bottom: 0;
+                    }
+
+                #aside {
+                    position: relative;
+                }
+
+                    #aside dl {
+                        position: relative;
+                        opacity: 0;
+                        z-index: 1;
+                    }
+
+                    #aside div {
+                        position: absolute;
+                         top: 0;
+                         left: 0;
+                        z-index: 2;
+                    }
+
+                        #aside button {
+                            display: block;
+                            margin-bottom: 10px;
+                        }
+
+                div.option {
+                    position: relative;
+                    margin-bottom: 8px;
+                }
+
+                    div.option label {
+                        display: block;
+                        cursor: pointer;
+                    }
+
+                    div.option input[type="checkbox"] {
+                        width: 13px;
+                        height: 13px;
+                        padding: 0;
+                        margin: 0 0 0 3px;
+                        vertical-align: bottom;
+                        position: relative;
+                        top: -1px;
+                    }
+
+                    #playmode {
+                        position: absolute;
+                         top: -4px;
+                         left: 60px;
+                        z-index: 5;
+                        width: 116px;
+                        margin: 0;
+                        padding: 3px;
+                        border: 1px solid rgb(220, 220, 220);
+                        font-family: "GraublauWeb";
+                        list-style: none;
+                        -moz-border-radius: 4px;
+                        -webkit-border-radius: 4px;
+                        border-radius: 4px;
+                        background: #f0f0f0;
+                        background: -moz-linear-gradient(top, rgba(255, 255, 255, .1), rgba(0, 0, 0, .05));
+                        background: -webkit-gradient(linear, left top, left bottom, from(rgba(255, 255, 255, .1)), to(rgba(0, 0, 0, .05)));
+                    }
+
+                        #playmode:hover {
+                            -moz-box-shadow: 0 0 3px rgba(0, 0, 0, .1);
+                            -webkit-box-shadow: 0 0 3px rgba(0, 0, 0, .1);
+                            box-shadow: 0 0 3px rgba(0, 0, 0, .1);
+                        }
+
+                        #playmode li {
+                            display: none;
+                            cursor: pointer;
+                        }
+
+                            #playmode:hover li, #playmode li.selected {
+                                display: list-item;
+                            }
+
+                                #playmode:hover li.selected:after {
+                                    content: " \2714";
+                                }
+
+                            #playmode:hover li:last-child {
+                                margin-top: 3px;
+                            }
+
+                            #playmode li:hover {
+                               color: rgb(0,0,0);
+                            }
+
+                                #playmode li:hover:after {
+                                   content: " \2190" !important;
+                                }
+
+        .modal {
+            display: none;
+            position: absolute;
+             top: 180px;
+             left: 50%;
+            z-index: 5;
+            width: 400px;
+            margin-left: -208px;
+            padding: 16px;
+
+            font-size: 1.1em;
+
+            border: 1px solid rgba(0,0,0,.3);
+            -moz-border-radius: 10px;
+            -webkit-border-radius: 10px;
+            border-radius: 10px;
+            background: #fafafa;
+            background: -moz-linear-gradient(top, #ffffff, #fafafa 90%, #f0f0f0 100%);
+            background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#ffffff), color-stop(.9, #fafafa), to(#f0f0f0));
+
+            -moz-box-shadow: 0 0 90px rgba(0,0,0,.35);
+            -webkit-box-shadow: 0 0 90px rgba(0,0,0,.35);
+            box-shadow: 0 0 90px rgba(0,0,0,.35);
+        }
+
+            .modal h2 {
+                margin-top: 0;
+            }
+
+            .modal textarea {
+               width: 99%;
+               min-height: 30px;
+               max-height: 200px;
+               height: 30px;
+               margin-bottom: 10px;
+               -moz-resize: vertical;
+               resize: vertical;
+               white-space: wrap;
+            }
+
+            .modal button {
+                float: right;
+            }
+
+            .modal h4 {
+                margin: 4px 0 -6px 0;
+                font: small-caps bold 12px verdana;
+                text-shadow: 0 1px 0 rgba(255,255,255,1), 0 -1px 0 rgba(0,0,0,.1);
+                color: #666;
+            }
+
+            .modal hr {
+                height: 0;
+                border: none;
+                border-top: 1px solid rgba(0,0,0,.06);
+                border-bottom: 1px solid rgba(255,255,255,.6);
+            }
+
+            ul.games {
+                margin: 0 0 0 8px;
+                padding: 0;
+                list-style: none;
+            }
+
+                ul.games li {
+                    float: left;
+                    margin-right: 5px;
+                    width: 25px;
+                    line-height: 20px;
+                    text-align: center;
+                    border: 1px solid rgba(0,0,0,.1);
+                    background: #f0f0f0;
+                    -moz-border-radius: 4px;
+                    -webkit-border-radius: 4px;
+                    border-radius: 4px;
+                    cursor: pointer;
+                }
+
+                    ul.games li.solved {
+                        background: #f0fbf0;
+                    }
+
+                        ul.games li.solved:hover {
+                            background: #e5f1e5;
+                        }
+
+                    ul.games li:hover {
+                        background: #e5e5e5;
+                    }
+
+        #footer {
+            margin-top: 40px;
+            font-size: 11px;
+            letter-spacing: .1em;
+            text-align: center;
+            color: rgb(200,200,205);
+            text-shadow: 0 1px 0 rgba(255,255,255, 1);
+        }
+
+/* misc */
+p {
+    margin: 0 0 5px 0;
+    line-height: 1.35em;
+    text-shadow: 0 1px 0 #ffffff;
+}
+
+abbr {
+    border-bottom: 1px dotted #c6c6c6;
+}
+
+a {
+    color: inherit;
+    text-decoration: underline;
+}
+
+a:hover {
+    text-decoration: none;
+}
+
+cite {
+    font-style: italic;
+    font-family: serif;
+}
+
+    cite a {
+        text-decoration: none;
+    }
+
+    cite a:hover {
+        text-decoration: underline;
+    }
+
+button {
+    margin-left: 10px;
+    padding: 3px 4px;
+    border: 1px solid #d6d6d6;
+    background: #f0f0f0;
+    font: normal 14px Arial;
+    color: #333;
+    text-shadow: 0 1px 0 rgba(255,255,255,.4);
+    -moz-border-radius: 4px;
+    -webkit-border-radius: 4px;
+    border-radius: 4px;
+    -moz-box-shadow: inset 0 1px 1px rgba(255,255,255,.6),
+        inset 0 -1px 5px rgba(0,0,0,.1),
+        0 1px 2px rgba(0,0,0,.06);
+    -webkit-box-shadow: inset 0 1px 1px rgba(255,255,255,.6),
+        inset 0 -1px 5px rgba(0,0,0,.1),
+        0 1px 2px rgba(0,0,0,.06);
+    box-shadow: inset 0 1px 1px rgba(255,255,255,.6),
+        inset 0 -1px 5px rgba(0,0,0,.1),
+        0 1px 2px rgba(0,0,0,.06);
+
+    cursor: pointer;
+}
+
+button:hover {
+    -moz-box-shadow: inset 0 1px 1px rgba(255,255,255,.3),
+        inset 0 -1px 2px rgba(0,0,0,.06),
+        0 1px 2px rgba(0,0,0,.1);
+    -webkit-box-shadow: inset 0 1px 1px rgba(255,255,255,.3),
+        inset 0 -1px 2px rgba(0,0,0,.06),
+        0 1px 2px rgba(0,0,0,.1);
+    box-shadow: inset 0 1px 1px rgba(255,255,255,.3),
+        inset 0 -1px 2px rgba(0,0,0,.06),
+        0 1px 2px rgba(0,0,0,.1);
+}
+
+button:active {
+    padding: 4px 4px 2px 4px;
+    -moz-box-shadow: inset 0 -1px 1px rgba(255,255,255,.3),
+        inset 0 1px 5px rgba(0,0,0,.1);
+    -webkit-box-shadow: inset 0 -1px 1px rgba(255,255,255,.3),
+        inset 0 1px 5px rgba(0,0,0,.1);
+    box-shadow: inset 0 -1px 1px rgba(255,255,255,.3),
+        inset 0 1px 5px rgba(0,0,0,.1);
+}
+
+
+/***************************************/
+
+/* TipTip CSS - Version 1.2 */
+
+#tooltip {
+    opacity: 0;
+	position: absolute;
+	top: 0;
+	left: 0;
+	z-index: 99999;
+	padding-bottom: 5px;
+}
+
+#tcontent {
+	font-size: 11px;
+	color: #fff;
+	text-shadow: 0 0 2px #000;
+	padding: 4px 8px;
+	border: 1px solid rgba(255,255,255,0.25);
+	background-color: rgb(25,25,25);
+	background-color: rgba(25,25,25,0.92);
+	background-image: -moz-linear-gradient(top, transparent, #000);
+	background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(transparent), to(#000));
+	border-radius: 3px;
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+	box-shadow: 0 0 3px #555;
+	-webkit-box-shadow: 0 0 3px #555;
+	-moz-box-shadow: 0 0 3px #555;
+}
+
+#tarrow, #tarrow2 {
+	position: absolute;
+	border-color: transparent;
+	border-style: solid;
+	border-width: 6px;
+	height: 0;
+	width: 0;
+}
+
+#tarrow {
+	border-top-color: #fff;
+	border-top-color: rgba(255,255,255,0.35);
+}
+
+#tarrow2 {
+	margin-top: -7px;
+	margin-left: -6px;
+	border-top-color: rgb(25,25,25);
+	border-top-color: rgba(25,25,25,0.92);
+}
+
+/* Webkit Hacks  */
+@media screen and (-webkit-min-device-pixel-ratio:0) {
+	#tcontent {
+		padding: 4px 8px 5px 8px;
+		background-color: rgba(45,45,45,0.88);
+	}
+	#tarrow2 {
+		border-bottom-color: rgba(45,45,45,0.88);
+	}
+}

@@ -1,0 +1,16 @@
+/**
+ * FONTS STYLESHEET
+ */
+
+@font-face {
+	font-family: "GraublauWeb";
+	src: url("GraublauWeb.otf");
+}
+
+@font-face {
+	font-family: 'ChunkFive';
+	src: url('Chunkfive-webfont.eot');
+	src: local('☺'), url('Chunkfive-webfont.woff') format('woff'), url('Chunkfive-webfont.ttf') format('truetype'), url('Chunkfive-webfont.svg#webfontb5K2fJwj') format('svg');
+	font-weight: normal;
+	font-style: normal;
+}
